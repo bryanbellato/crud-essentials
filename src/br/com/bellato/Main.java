@@ -47,6 +47,12 @@ public class Main {
                 search(data);
             }
 
+            else if(isOptionRemove(option)) {
+                String data = JOptionPane.showInputDialog(null, "Insert the client's CPF to remove it.",
+                        "CRUD Essentials", JOptionPane.INFORMATION_MESSAGE);
+                remove(data);
+            }
+
             option = JOptionPane.showInputDialog(null,
                     "Press 1 to register, 2 to search, 3 to remove, 4 to update or 5 to leave.", "CRUD Essentials",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -82,6 +88,13 @@ public class Main {
         return false;
     }
 
+    private static boolean isOptionRemove(String option) {
+        if ("3".equals(option)) {
+            return true;
+        }
+        return false;
+    }
+
     private static void leave() {
         JOptionPane.showMessageDialog(null, "Come back any time.", "Leaving.", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
@@ -108,6 +121,16 @@ public class Main {
             JOptionPane.showMessageDialog(null, "Client not found.", "CRUD Essentials.", JOptionPane.INFORMATION_MESSAGE);
         }
 
+    }
+
+    private static void remove(String data) {
+        Client client = iClientDAO.search(Long.parseLong(data));
+        if (client != null) {
+            iClientDAO.remove(Long.parseLong(data));
+            JOptionPane.showMessageDialog(null, "Client successfully removed.", "CRUD Essentials", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Client not found.", "CRUD Essentials", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
 }
